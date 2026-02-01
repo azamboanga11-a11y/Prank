@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chrome History — Demo</title>
+  <style>
+    :root{
+      --bg:#f1f3f4; --card:#ffffff; --text:#202124; --muted:#5f6368; --line:#e0e0e0; --accent:#1a73e8;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: Roboto, Arial, Helvetica, sans-serif; background:var(--bg); color:var(--text);
+    }
+    header{
+      background:#fff; border-bottom:1px solid var(--line); padding:12px 16px; display:flex; align-items:center; gap:12px;
+    }
+    .dot{width:12px;height:12px;border-radius:50%;background:#e8eaed}
+    .logo{font-weight:600}
+    .pill{margin-left:auto; font-size:12px; color:#1558d6; background:#e8f0fe; padding:4px 8px; border-radius:999px}
+    main{max-width:920px; margin:16px auto; padding:0 12px}
+    .card{background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden}
+    .toolbar{padding:10px 12px; border-bottom:1px solid var(--line); display:flex; gap:8px; align-items:center}
+    .search{flex:1; border:1px solid var(--line); border-radius:999px; padding:8px 12px; color:var(--muted)}
+    .section{padding:8px 12px; color:var(--muted); font-size:12px}
+    .row{display:grid; grid-template-columns: 1fr auto; gap:8px; padding:10px 12px; border-top:1px solid var(--line)}
+    .row:first-of-type{border-top:none}
+    .title{font-size:14px}
+    .url{font-size:12px; color:var(--muted)}
+    .time{font-size:12px; color:var(--muted)}
+    .tag{font-size:11px; color:#b80606; background:#fde7e9; padding:2px 6px; border-radius:6px; margin-left:6px}
+    .footer{padding:10px 12px; text-align:center; font-size:11px; color:#9aa0a6}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    <div class="logo">History</div>
+    <span class="pill">Gotcha</span>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="toolbar">
+        <div class="search">Search history</div>
+      </div>
+      <div class="section">Today — Incognito (Simulated)</div>
+      <div id="list"></div>
+      <div class="footer">Simulated data • No real browsing history accessed</div>
+    </div>
+  </main>
+
+  <script>
+    // FAKE / RANDOM — SAFE PRANK
+    const placeholders = [
+      {title:'nhentai.net', url:'nhentai.net/g/288363', tag:'Adult'},
+      {title:'nhentai.net', url:'nhentai.net/g/929993', tag:'Adult'},
+      {title:'nhentai.net', url:'pornhub.com', tag:'Adult'},
+      {title:'PornHub.com', url:'pornhub.com', tag:'Adult'},
+    ];
+    const list = document.getElementById('list');
+    const now = Date.now();
+    for(let i=0;i<4;i++){
+      const it = placeholders[Math.floor(Math.random()*placeholders.length)];
+      const row = document.createElement('div');
+      row.className = 'row';
+      const t = new Date(now - i*1000*60*4).toLocaleTimeString();
+      row.innerHTML = `
+        <div>
+          <div class="title">${it.title} <span class="tag">${it.tag}</span></div>
+          <div class="url">${it.url}</div>
+        </div>
+        <div class="time">${t}</div>
+      `;
+      list.appendChild(row);
+    }
+  </script>
+</body>
+</html>
